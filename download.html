@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>下载管理</title>
+    <script src="./js/vue.min.js"></script>
+    <style type="text/css">
+    body {
+        font-size: 12px;
+        color: #4D4D4D;
+      
+        font-family: "Microsoft YaHei" ! important;
+    }
+
+    .box {
+        width: 650px;
+        border-bottom: 1px solid;
+        border-bottom-color: #EDEDED
+    }
+
+    .box_ico {
+        width: 50px;
+        height: 50px;
+        float: left;
+    }
+
+    .box_ico img {
+        height: 32px;
+        margin: 9px;
+    }
+
+    .box_ico_file {
+        width: 350px;
+        height: 50px;
+        float: left;
+    }
+
+    .box_ico_file_name {
+        width: 350px;
+        height: 30px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+
+    .box_ico_file_size {
+        width: 350px;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .box_open {
+        width: 75px;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+        cursor: pointer;
+    }
+
+    .box_open_ico {
+        float: left;
+        margin: 10px 0;
+    }
+
+    .box_open_ico img {
+        height: 25px;
+    }
+
+    .box_open_t {
+        width: 39px;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+    }
+    </style>
+</head>
+
+<body >
+    <div id="download">
+        <div class="box" v-for="item in arr">
+            <div class="box_ico"><img src="./ioc/file2.png" v-on:click="openfile(item.path)"></div>
+            <div class="box_ico_file">
+                <div class="box_ico_file_name" v-on:click="openfile(item.path)">{{item.name}}</div>
+                <div class="box_ico_file_size"> {{item.sizes}} M {{item.datetime}}</div>
+            </div>
+            <div class="box_open">
+                <div class="box_open_ico"><img src="./ioc/file/f1.png" v-on:click="openfile(item.path)"></div>
+                <div class="box_open_t" v-on:click="openfile(item.path)"> 打开</div>
+            </div>
+            <div class="box_open">
+                <div class="box_open_ico"><img src="./ioc/file/f2.png"  v-on:click="openfield(item.path)"></div>
+                <div class="box_open_t"  v-on:click="openfield(item.path)"> 文件夹</div>
+            </div>
+            <div class="box_open">
+                <img src="./ioc/del.png"   v-on:click="del(item._id)" style="width: 16px ; height: 16px; margin: 17px auto; float: right;">
+                
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+    </script>
+</body>
+
+</html>

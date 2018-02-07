@@ -1,0 +1,58 @@
+{
+  "name": "linksame",
+  "version": "1.0.2",
+  "description": "邻盛管家客户端",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder -wm",
+    "build": "electron-packager . linksame --win --out ../linksamedist --arch=x64 --version=8.0.1 --icon=./ioc/ls.ico",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ranmufei/lks-client.git"
+  },
+  "keywords": [
+    "linksame",
+    "邻盛企业管家，企业办公，业务管理"
+  ],
+  "author": "冉幕飞",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ranmufei/lks-client/issues"
+  },
+  "homepage": "https://github.com/ranmufei/lks-client#readme",
+  "dependencies": {    
+    "electron-main-notification": "^1.0.1",
+    "electron-notify": "^0.1.0",
+    "electron-packager": "^10.1.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^2.20.1",
+    "gulp": "^3.9.1",
+    "nedb": "^1.8.0"
+  },
+  "build": {
+    "appId": "github.com.ranmufei",
+    "copyright": "RANMUFEI",
+    "productName": "Linksame",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://www.linksame.com/release"
+      }
+    ],
+    "win": {
+      "icon": "ioc/ls.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "^1.7.12",
+    "electron-winstaller": "^2.6.4",
+    "grunt-electron-installer": "^2.1.0"
+  }
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>邻盛管家</title>
+<style>
+body{
+   -moz-user-select: none; /*火狐*/
+   -webkit-user-select: none;  /*webkit浏览器*/
+   -ms-user-select: none;   /*IE10*/
+   -khtml-user-select: none; /*早期浏览器*/
+   user-select: none;
+   overflow: hidden;
+   
+  }
+
+  *{ -moz-user-select: none; /*火狐*/
+   -webkit-user-select: none;  /*webkit浏览器*/
+   -ms-user-select: none;   /*IE10*/
+   -khtml-user-select: none; /*早期浏览器*/ 
+   user-select: none;}
+.main{ /*background:url(img/login.png) no-repeat; */  
+  -webkit-app-region:drag;
+  background:rgb(50, 185, 247); width:630px; height:360px; margin:10px auto; position:relative; border-radius:5px;overflow:hidden; position:relative; }
+.login_1{  width:88px; height:88px; border-radius:50%; position:absolute; left:271px; top:94px; cursor:pointer; border:2px solid #fff;    overflow: hidden;-webkit-transition: all 5s;}
+ 
+.img2{}
+.login_2{ background:url(img/login3.png) no-repeat; width:341px; height:46px;border-radius: 5px; position:absolute; left:150px; top:212px; cursor:pointer; text-align: center;color: #666;line-height: 46px;}
+.point{ cursor: pointer;}
+.login_close{ background:url(img/login4.png) no-repeat 4px; width:20px; height:20px; position:absolute; right:10px; top:7px;cursor:pointer;     border: 1px solid #696767; border-radius: 50%;}
+.login_text{ font-size: 13px;  color: #212020;  position: absolute;  bottom: 16px;  right: 30px;}
+.login_3{float: left;  margin-left: 10px; margin-top: 10px; font-size: 14px;  color: #fff; font-weight: bold;}
+.login_4{width:341px; height:46px; position:absolute; left:150px; top:255px;-webkit-app-region:no-drag;}
+.login_4 ul{overflow:hidden; list-style:none; padding-left:0;}
+.login_4 ul li{float:left; font-size:12px;}
+.login_4 ul li:nth-of-type(1){float:left;color: #49A5EC; }
+.login_4 ul li:nth-of-type(2){float:right;color: #7D7B7B;  }
+.login_4 ul li:nth-of-type(1) a{color: #49A5EC;display:block; }
+.login_4 ul li:nth-of-type(2) a{color: rgb(14, 167, 253); display:block; }
+
+
+
+a{text-decoration:none;}
+b{font-weight: 100;}
+.yun1{width: 1800px; position: absolute; top: 154px;-webkit-animation:myfirst 60s infinite;-webkit-animation-direction:normal;}
+.yun1 img{display:block;float:left;}
+.yun2{width: 1800px;position: absolute;top: 247px;-webkit-animation:mysec 40s infinite;-webkit-animation-direction:normal;}
+.yun2 img{display:block;float:left;}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%   { left:0px;}
+25%   { left:-225px;}
+50%   { left:-450px;} 
+75%   { left:-675px;} 
+100%  {left:-900px}
+ 
+}
+
+@-webkit-keyframes mysec /* Safari and Chrome */
+{
+0%   { left:0px;}
+25%   { left:-225px;}
+50%   { left:-450px;} 
+75%   { left:-675px;} 
+100%  {left:-900px}
+ 
+}
+</style>
+</head>
+
+<body>
+
+<div class="main" id="login-container"> 
+   <div class="yun1"><img ondragstart="return false;" src="img/yun1.png"><img ondragstart="return false;" src="img/yun1.png"></div>
+   <div class="yun2"><img ondragstart="return false;" src="img/yun2.png"><img ondragstart="return false;" src="img/yun2.png"></div>
+
+   <div id='lan' style="cursor:pointer;"  class="login_1"><img id="avatar"  ondragstart="return false;" src="img/tu.png"></div>
+   <div class="login_2" id="login"  style="cursor:pointer; -webkit-app-region:no-drag;"></div>
+   <div class="login_4" >
+      <ul>
+       <li><a href="http://www.linksame.com/index.php?app=Core&m=Pcdregister&a=choicelocation"><b>注册激活</b></a>
+        &nbsp &nbsp
+        <a href="http://www.linksame.com/index.php?app=Core&m=Member&a=findpasswordView"><b>忘记密码</b></a></li>
+     <li><a href="setting.html"  target="_blank"><b>检修</b>&nbsp &nbsp <b onclick="loginOut();">切换账号<span id='user'></span></b></a></li>
+    </ul>
+   </div>
+   <div class="login_3"><img  ondragstart="return false;" src="img/wen.png"></div>
+   <div class="login_close" id="closebtn" style="cursor:pointer;-webkit-app-region:no-drag;" ></div>
+   <span class="login_text">    
+
+   <a href="javascript:checkVersion();" style="color:#4385f4;font-size:12px; text-decoration:none;">升级</a>&nbsp; &nbsp;
+   <a href="javascript:" style="color:#666;font-size:14px; text-decoration:none;">版本：</a><span id="vision"></span>  &nbsp; &nbsp; &nbsp; <span id="network"></span></span>
+
+</div>
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.7.2.min.js"></script>
+<script src="./index.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard - Bootstrap Admin</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  <script>
+    function loacation(id) {
+      if (id == '1') {
+        window.location.href = 'http://192.168.1.254';
+      } else {
+        window.location.href = 'http://www.03in.com/index.php?app=Core&m=Index&a=loginToSyp';
+      }
+
+    }
+  </script>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+  <style>
+
+
+  .input_style{}
+  .login_dl{ padding: 4px 8px;}
+   table td{ line-height: 60px;}
+
+  .input_style{ padding-left: 0;  }
+    .login_main{ width: 290px; height: 190px;}  
+  .green{ color:green;}
+  .red{ color:red;}
+  #msg{ height: 24px; line-height: 25px; text-align: center; color: green}
+ 
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+
+  <div class='login_body'>
+    <div class="login_top" style="height:100px">
+      <span class="close" id="lx-close">X</span>
+    </div>
+    <div class="login_main">
+   <div id="msg"></div>
+     <table>
+        <tr>
+       <!--     <td width="60" valign=" top">故障排除:</td>
+          <td><span onclick="deletecookie();" class="login_dl">一键登录故障排除</span>
+            <span onclick="restartip();" class="login_dl">&nbsp;&nbsp;&nbsp;&nbsp;重新获取ip&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </td> -->
+        </tr>
+      </table>
+      <table>
+
+       <!--  <tr>
+          <td  width="60">云盘地址:</td>
+          <td>
+            <input type="text" class="input_style" class="input_style" name='ip' id='ip' value='' />
+          </td>
+        </tr> -->
+        <tr>
+          <td  width="60">pcd网络:</td>
+          <td>
+           <span id='pcd'></span> <a href="javascript:pcd()">重新检测</a>
+          </td>
+        </tr>
+        <tr>
+
+          <td colspan="2" align="center">
+            <!-- <span class="login_dl" onclick="edit();">保存修改</span> -->
+          </td>
+        </tr>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+  </div>
+
+  <!-- Le javascript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="./js/jquery-1.7.2.min.js"></script>
+  <script src="./js/LxExt-1.0.dev.js"></script>
+  <script src="./js/layer/layer.js"></script>
+  <script>
+    // init window
+    $(function () {
+      LxExt.Dialog.dragRegion($('body'));
+    });
+
+    function closes() {
+      LxExt.Dialog.closeWnd();
+    }
+  </script>
+  <script>
+    var newip;
+    var path = LomoX.appPath;
+
+    var WindowSettings = {
+        minWidth: 330,
+        minHeight: 479,
+        width: screen.width - 100,
+        height: 640,
+        center: true,
+        debug: true
+      }
+     //----------byte数组转换为数组
+      function byte2array(arr) {
+        var newR = [];
+        for (var i = 0; i < arr.length; i++) {
+          newR.push(arr[i])
+        }
+        return newR;
+      }
+
+      //进制数组 转换为正式文字
+      function bin2String(array) {
+        return String.fromCharCode.apply(String, array);
+      }
+      // init window
+    $(function () {
+      LxExt.Dialog.dragRegion($('#MyTitle'));
+      LxDialog.setDialogWH(WindowSettings.minWidth, WindowSettings.minHeight)
+        //console.log(LomoX.setupJsAPIObject());	     
+        //LxExt.Dialog.setMinimumSize(WindowSettings.minWidth, WindowSettings.minHeight);	 
+        //添加 最小化，关闭事件
+      var _max = function () {
+        if ($("#lx-max").hasClass('lx-normal')) {
+          $("#lx-max").removeClass('lx-normal');
+          LxExt.Dialog.showNormal();
+        } else {
+          $("#lx-max").addClass('lx-normal');
+          LxExt.Dialog.showMaximized();
+        }
+      }
+      $("#lx-max").on('mouseup', _max);
+      $('#MyTitle').dblclick(_max);
+      $("#lx-min").on('mouseup', function () {
+        LxExt.Dialog.showMinimized();
+      });
+      $("#lx-close").on('mouseup', function () {
+        //提醒
+        LxExt.Dialog.closeWnd();
+      });
+      //
+      //进制数组 转换为正式文字
+
+     
+
+
+      //ip检查
+      function isIP(strIP) {
+        if (strIP == null) return false;
+        var re = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/g //匹配IP地址的正则表达式 
+        if (re.test(strIP)) {
+          if (RegExp.$1 < 256 && RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256) return true;
+        }
+        return false;
+      }
+
+   
+    });
+
+    //删除cookie
+    function deletecookie() {
+        var statu = LomoX.file.remove(LomoX.appPath + '/cache/cookie.dat');
+        console.log(statu);
+        if(statu){
+          $("#msg").text('已成功删除登录信息！请重启软件登录');
+        }else{
+          $("#msg").text('系统已无登录信息，请重启软件登录！');
+        }
+        //alert('完成！一定要关闭后重新打开软件');
+
+      }
+      deletecookie();//打开设置自动删除cookie
+      //编辑ip
+    function edit() {
+        var newip = $('#ip').val();
+       // alert(newip);
+        layer.msg(newip);
+        var editnewip = LomoX.file.write(this.path + '/ip.txt', newip, 'utf-8');
+        console.log(editnewip);
+      }
+      //重新获取ip
+
+    function restartip() {
+      var statu = LomoX.file.remove(LomoX.appPath + '/init.lock');
+      console.log(statu);
+      Init();
+      window.location.reload();
+
+    }
+
+
+
+
+// 禁止右键
+function fobidden_right(){
+   
+    document.onkeydown = function() {  
+        if (event.keyCode == 116) {  
+            event.keyCode = 0;  
+            event.returnValue = false;  
+        }  
+    }  
+    document.oncontextmenu = function() {  
+      //  alert("禁止右键！");  
+        event.returnValue = false;  
+    }    
+   
+
+   
+}
+//fobidden_right(); //右键禁用开关
+
+
+
+function pcd(){
+   //读取ip文件
+     
+   var info=readinitinfo();
+   var ip=info[0];
+   $("#pcd").text('正在检测中……');
+  $.ajax({
+    type:'POST',
+    url:'http://'+ip+':8086/waibu/initOauth/system/networkStatu/index.php',
+    success:function(data){
+      data=jQuery.parseJSON(data);
+      if(data.status==1){
+        $("#pcd").addClass('green');
+        $("#pcd").text(data.info);
+      }else if(data.status==0){
+        $("#pcd").addClass('red');
+        $("#pcd").text(data.info);
+      }else{
+        $("#pcd").addClass('red');
+        $("#pcd").text('你好像连pcd都没连上啊？请检查线路网络');
+      }
+      console.log('data:',data);
+    },
+    error:function(data){
+      console.log('error:',data);
+       $("#pcd").addClass('red');
+       $("#pcd").text('你好像连pcd都没连上啊？请检查线路网络');
+    }
+  });
+}
+pcd();
+
+/**
+ * 读取initinfo 文件
+ * @return {[type]} [description]
+ */
+function readinitinfo(){
+    var getinfo=LomoX.file.readFileData(path+'/initinfo.txt','Unicode');
+    var getinfostring=bin2String(byte2array(getinfo));
+    var initinfoarr=getinfostring.split(/\s+/);
+    return initinfoarr
+}
+
+
+
+
+  </script>
+</body>
+
+</html>
