@@ -255,7 +255,9 @@ function createWindow() {
               
             ]
         },
-        { label: '升级', type: 'normal', icon: __dirname+'\\ioc\\upgrate.png' },
+        { label: '升级', type: 'normal', icon: __dirname+'\\ioc\\upgrate.png',click:function(){
+          updateHandle();
+        } },
         { label: '注销', type: 'normal', icon: __dirname+'\\ioc\\zx.png', role: 'close',click:function(){
             
             // console.log('siht',console.log(ses.getUserAgent()))
@@ -456,10 +458,10 @@ function getico(path){
 // 检测更新，在你想要检查更新的时候执行，renderer事件触发后的操作自行编写
 function updateHandle(){
     let message={
-      error:'检查更新出错',
-      checking:'正在检查更新……',
-      updateAva:'检测到新版本，正在下载……',
-      updateNotAva:'现在使用的就是最新版本，不用更新',
+      error:'check version error',
+      checking:'check updateing ......',
+      updateAva:'find a New Version，downloading ......',
+      updateNotAva:'now it New best',
     };
     const os = require('os');
     autoUpdater.setFeedURL('http://www.linksame.com/release/');
@@ -478,6 +480,7 @@ function updateHandle(){
     
     // 更新下载进度事件
     autoUpdater.on('download-progress', function(progressObj) {
+        console.log('downloading:',progressObj)
         mainWindow.webContents.send('downloadProgress', progressObj)
     })
     autoUpdater.on('update-downloaded',  function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
@@ -489,13 +492,20 @@ function updateHandle(){
     });
     
     //执行自动更新检查
-    autoUpdater.checkForUpdates();
+    //autoUpdater.checkForUpdates();
+     ipcMain.on("checkForUpdate",()=>{
+          //执行自动更新检查
+          autoUpdater.checkForUpdates();
+      })
+     console.log('now check updateing ~~~~')
+      autoUpdater.checkForUpdates();
 }
 
 // 通过main进程发送事件给renderer进程，提示更新信息
 // mainWindow = new BrowserWindow()
 function sendUpdateMessage(text){
-    mainWindow.webContents.send('message', text)
+    console.log('text:',text)
+    //mainWindow.webContents.send('message', text)
 }
 
 
