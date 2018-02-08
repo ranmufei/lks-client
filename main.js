@@ -481,14 +481,14 @@ function updateHandle(){
     // 更新下载进度事件
     autoUpdater.on('download-progress', function(progressObj) {
         console.log('downloading:',progressObj)
-        mainWindow.webContents.send('downloadProgress', progressObj)
+        upwin.webContents.send('downloadProgress', progressObj)
     })
     autoUpdater.on('update-downloaded',  function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
         ipcMain.on('isUpdateNow', (e, arg) => {
             //some code here to handle event
             autoUpdater.quitAndInstall();
         })
-        mainWindow.webContents.send('isUpdateNow')
+        upwin.webContents.send('isUpdateNow')
     });
     
     //执行自动更新检查
@@ -498,7 +498,24 @@ function updateHandle(){
           autoUpdater.checkForUpdates();
       })
      console.log('now check updateing ~~~~')
-      autoUpdater.checkForUpdates();
+     // autoUpdater.checkForUpdates();
+
+      //open upgroud dialog
+       const modalPath = path.join('file://', __dirname, 'upgroud.html')
+      //let win = new BrowserWindow({ width: 705, height: 250,resizable:false,autoHideMenuBar:true,type: 'desktop', icon: './ioc/download2.png' })
+      let upwin = new BrowserWindow({ 
+        width: 705, 
+        height: 250,
+        autoHideMenuBar:true,
+        type: 'desktop', 
+        icon: __dirname+'\\ioc\\upgrate.png',
+        //resizable:false,
+        //maximizable:false,
+         })
+      //win.setApplicationMenu(null);
+      upwin.on('close', function() { upwin = null })
+      upwin.loadURL(modalPath)
+      upwin.show()
 }
 
 // 通过main进程发送事件给renderer进程，提示更新信息
