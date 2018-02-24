@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>升级管理</title>
     <script src="./js/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/element-ui/2.1.0/index.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.4.0/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/element-ui/2.1.0/theme-chalk/index.css" rel="stylesheet">
+
     <style type="text/css">
     body {
         font-size: 12px;
@@ -129,21 +133,56 @@
 <body >
 <div  id="download">
     <div >
-        <span>当前版本 v1.0.2  ； 有新版本  <a href="#" v-on:click="checkUpgrade">更新</a> </span>
+        <span> <a href="#"  v-on:click="checkUpgrade">检查新版本</a></span>
+        
+        <span v-if="updateVisible"> 
+            <b>新版本：</b> <span style="color: red">{{version.version}}     </span>               <b>发布时间：</b>  {{version.releaseDate}}   
+            <el-button type="primary" icon="el-icon-download" size="mini" @click="download" v-bind:disabled="disabled">立刻升级</el-button>
+            <div id='progress' v-show="downloadVisible" style="padding: 10px 0">
+                <el-progress :text-inside="true" :stroke-width="18" :percentage="downloaded" status="exception"></el-progress>
+            </div>
+            <div>
+                <h2>更新日志</h2>
+                <pre>{{versionlog}}</pre>
+            </div>
+         </span>
+         <span v-else> 您当前 为最新版本</span>
     </div>
-
-    <div class="container">
+    
+    <div class="container" style="margin: 20px 0">
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <div class="progress">
-                    <div id="downloading"  class="progress-bar progress-bar-info progress-bar-striped active" style="height: 6px;background: #ededed;">
-                        <div class="progress-value">{{downloaded}}%</div>
-                    </div>
-                </div>                
+            
+            <div id="downloading">
+                
+            </div>
+            
+                <!-- <div class="progress">
+                             <div id="downloading"  class="progress-bar progress-bar-info progress-bar-striped active" style="height: 6px;background: #ededed;">
+                                 <div class="progress-value">{{downloaded}}%</div>
+                             </div>
+                             
+                         </div>        -->         
             </div>
         </div>
        </div>
+
+<el-dialog
+  title="升级提醒"
+  :visible.sync="dialogVisible"
+  width="30%"
+  :before-close="handleClose">
+  <span>下载完成 立刻安装吗？</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="upgradeing">确 定</el-button>
+  </span>
+</el-dialog>
+
 </div>
+
+
+
     <script>
     // You can also require other files to run in this process
     require('./upgrade.js')

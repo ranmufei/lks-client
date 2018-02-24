@@ -2,6 +2,7 @@ if (require('electron-squirrel-startup')) return;
 const electron = require('electron')
 //import { autoUpdater } from "electron-updater"
 const autoUpdater=require('electron-updater').autoUpdater
+autoUpdater.autoDownload = false // 配置取消自动下载
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -468,10 +469,13 @@ function updateHandle(){
     autoUpdater.on('error', function(error){
       sendUpdateMessage(message.error)
     });
-    autoUpdater.on('checking-for-update', function() {
+    autoUpdater.on('checking-for-update', function(info) {
+      console.log('checking for update:::',info)
       sendUpdateMessage(message.checking)
     });
     autoUpdater.on('update-available', function(info) {
+        console.log('update-available:::',info)
+        upwin.webContents.send('checkinfo', info)
         sendUpdateMessage(message.updateAva)
     });
     autoUpdater.on('update-not-available', function(info) {
@@ -488,32 +492,46 @@ function updateHandle(){
             //some code here to handle event
             autoUpdater.quitAndInstall();
         })
-        upwin.webContents.send('isUpdateNow')
+        console.log(releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate)
+        //upwin.webContents.send('isUpdateNow')
     });
     
     //执行自动更新检查
     //autoUpdater.checkForUpdates();
      ipcMain.on("checkForUpdate",()=>{
-          //执行自动更新检查
-          autoUpdater.checkForUpdates();
+          //执行自动更新检查 appUpdater.autoDownload = false
+          let checkinfo=autoUpdater.checkForUpdates();
+          console.log('checkinfo:',checkinfo)
+          
+      })
+     //执行下载
+    ipcMain.on("download",()=>{
+          autoUpdater.downloadUpdate()          
       })
      console.log('now check updateing ~~~~')
      // autoUpdater.checkForUpdates();
 
       //open upgroud dialog
-       const modalPath = path.join('file://', __dirname, 'upgroud.html')
+      const modalPath = path.join('file://', __dirname, 'upgroud.html')
       //let win = new BrowserWindow({ width: 705, height: 250,resizable:false,autoHideMenuBar:true,type: 'desktop', icon: './ioc/download2.png' })
       let upwin = new BrowserWindow({ 
         width: 705, 
         height: 250,
         autoHideMenuBar:true,
         type: 'desktop', 
-        icon: __dirname+'\\ioc\\upgrate.png',
-        //resizable:false,
-        //maximizable:false,
+        icon: __dirname+'\\ioc\\upgrate2.png',
+        resizable:false,
+        maximizable:false,
          })
       //win.setApplicationMenu(null);
-      upwin.on('close', function() { upwin = null })
+      upwin.on('close', function() { 
+          
+           upwin.webContents.send('close') 
+           
+           //ipcMain.removeAllListeners(["checkForUpdate", "download", "isUpdateNow"])
+           upwin = null
+           //ipcRenderer.removeAll(["checkForUpdate", "download", "isUpdateNow"]);
+       })
       upwin.loadURL(modalPath)
       upwin.show()
 }
