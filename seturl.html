@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>设置门店入口</title>
+    <script src="./js/vue.min.js"></script>
+    <style type="text/css">
+    body {
+        font-size: 12px;
+        color: #4D4D4D;
+      
+        font-family: "Microsoft YaHei" ! important;
+    }
+
+    .box {
+        width: 650px;
+        border-bottom: 1px solid;
+        border-bottom-color: #EDEDED
+    }
+
+    .box_ico {
+        width: 50px;
+        height: 50px;
+        float: left;
+    }
+
+    .box_ico img {
+        height: 32px;
+        margin: 9px;
+    }
+
+    .box_ico_file {
+        width: 350px;
+        height: 50px;
+        float: left;
+    }
+
+    .box_ico_file_name {
+        width: 350px;
+        height: 30px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+
+    .box_ico_file_size {
+        width: 350px;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .box_open {
+        width: 75px;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+        cursor: pointer;
+    }
+
+    .box_open_ico {
+        float: left;
+        margin: 10px 0;
+    }
+
+    .box_open_ico img {
+        height: 25px;
+    }
+
+    .box_open_t {
+        width: 39px;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+    }
+    .url{
+        width: 300px; height: 30px; line-height: 30px; margin: 50px 20px;
+    }
+    </style>
+</head>
+
+<body >
+    <div id="download">
+       <center><span>{{msg}}</span></center>
+       <span> 设置自定义店铺入口：</span>
+       <input type="text" v-model="url" class="url"> <button style="height: 30px; line-height: 30px;" @click="seturl"> 保存</button>
+
+       <div> 默认正式版地址 http://pos.pos.yingbb.com</div>
+       <div> 测试版地址 http://devpos.ybe.03in.com:8086</div>
+
+    </div>
+    <script>
+    // You can also require other files to run in this process
+    // require('./renderer.js')
+    
+// 渲染进程
+/**
+ * 下载 文件管理
+ * author ranmufei@qq.com
+ * date 2018/01/23 
+ */
+const electron = require('electron')
+const Notification = electron.Notification
+const {shell} = require('electron')
+// Module to control application life.
+const storage = require('electron-json-storage'); 
+const path = require('path')
+const nedb = require('nedb'); // 数据库
+//const app_data=app.getPath('userData')
+// 实例化连接对象（不带参数默认为内存数据库）
+
+const runpath=require('electron').remote.getGlobal('linksame').runpath
+
+
+
+const htmls=document.getElementById("#download")
+
+
+var vm = new Vue({
+    el:'#download',
+    data:{
+        name:'ranmufei',
+        url:'',
+        msg:'',
+        arr:[ ]
+    },
+    created:function(){
+            storage.get('url', function(error, data) {
+               if (error) throw error;
+
+                console.log('geturl:  ',data);
+                if(data){
+                    vm.url=data
+                    console.log('ininit',vm.url)
+                }
+
+                
+            });
+    },
+    methods:{
+        seturl:function(fullpath){
+            storage.set('url',this.url, function(error) {
+              if (error) throw error;
+              vm.msg="保存成功"
+            });
+
+        },
+    
+    }
+})
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

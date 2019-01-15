@@ -7,6 +7,7 @@
 const electron = require('electron')
 const {ipcRenderer} = require('electron')
 //const runpath=require('electron').remote.getGlobal('linksame').runpath
+const version=require('electron').remote.getGlobal('linksame').version
 
 const htmls=document.getElementById("#download")
 
@@ -23,7 +24,8 @@ var vm = new Vue({
  	    downloadVisible:false,
  	    version:{},
  	    versionlog:'',
- 	    disabled:false
+ 	    disabled:false,
+ 	    nowversion:version
  	},
  	methods:{
  		checkUpgrade:function(){
@@ -94,7 +96,7 @@ ipcRenderer.on('checkinfo', (event, arg,abc) => {
  		vm.updateVisible=true
  		$.ajax({
  			type:'get',
- 			url:'http://www.linksame.com/release/log-'+arg.version+'.txt',
+ 			url:'http://www.linksame.com/yberelease80/log-'+arg.version+'.txt',
  			success:function(data){
  				console.log('upgread log:',data)
  				vm.versionlog=data

@@ -1,106 +1,334 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>邻盛管家</title>
-<style>
-body{
-   -moz-user-select: none; /*火狐*/
-   -webkit-user-select: none;  /*webkit浏览器*/
-   -ms-user-select: none;   /*IE10*/
-   -khtml-user-select: none; /*早期浏览器*/
-   user-select: none;
-   overflow: hidden;
-   
-  }
-
-  *{ -moz-user-select: none; /*火狐*/
-   -webkit-user-select: none;  /*webkit浏览器*/
-   -ms-user-select: none;   /*IE10*/
-   -khtml-user-select: none; /*早期浏览器*/ 
-   user-select: none;}
-.main{ /*background:url(img/login.png) no-repeat; */  
-  -webkit-app-region:drag;
-  background:rgb(50, 185, 247); width:630px; height:360px; margin:10px auto; position:relative; border-radius:5px;overflow:hidden; position:relative; }
-.login_1{  width:88px; height:88px; border-radius:50%; position:absolute; left:271px; top:94px; cursor:pointer; border:2px solid #fff;    overflow: hidden;-webkit-transition: all 5s;}
- 
-.img2{}
-.login_2{ background:url(img/login3.png) no-repeat; width:341px; height:46px;border-radius: 5px; position:absolute; left:150px; top:212px; cursor:pointer; text-align: center;color: #666;line-height: 46px;}
-.point{ cursor: pointer;}
-.login_close{ background:url(img/login4.png) no-repeat 4px; width:20px; height:20px; position:absolute; right:10px; top:7px;cursor:pointer;     border: 1px solid #696767; border-radius: 50%;}
-.login_text{ font-size: 13px;  color: #212020;  position: absolute;  bottom: 16px;  right: 30px;}
-.login_3{float: left;  margin-left: 10px; margin-top: 10px; font-size: 14px;  color: #fff; font-weight: bold;}
-.login_4{width:341px; height:68px; position:absolute; left:150px; top:255px;-webkit-app-region:no-drag;}
-.login_4 ul{overflow:hidden; list-style:none; padding-left:0;}
-.login_4 ul li{float:left; font-size:12px;}
-.login_4 ul li:nth-of-type(1){float:left;color: #49A5EC; }
-.login_4 ul li:nth-of-type(2){float:right;color: #7D7B7B;  }
-.login_4 ul li:nth-of-type(1) a{color: #49A5EC;display:block; }
-.login_4 ul li:nth-of-type(2) a{color: rgb(14, 167, 253); display:block; }
 
 
 
-a{text-decoration:none;}
-b{font-weight: 100;}
-.yun1{width: 1800px; position: absolute; top: 154px;-webkit-animation:myfirst 60s infinite;-webkit-animation-direction:normal;}
-.yun1 img{display:block;float:left;}
-.yun2{width: 1800px;position: absolute;top: 247px;-webkit-animation:mysec 40s infinite;-webkit-animation-direction:normal;}
-.yun2 img{display:block;float:left;}
+<script src="./js/vue.min.js"></script>
 
-@-webkit-keyframes myfirst /* Safari and Chrome */
-{
-0%   { left:0px;}
-25%   { left:-225px;}
-50%   { left:-450px;} 
-75%   { left:-675px;} 
-100%  {left:-900px}
- 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>步步高登陆</title>
+<style type="text/css">
+*{margin:0;padding:0}
+body{font-size:12px;font-family:"Microsoft YaHei","微软雅黑","SimSun","宋体","sans-serif";
+}
+a{text-decoration:none}
+ul,
+li{list-style:none}
+
+/*登录样式 Start*/
+.login_body{width:330px;height:500px;background:#fff;box-shadow:0px 0px 10px  rgba(0,0,0,0.51);}
+.login_top{background:url(./login_new02.jpg) no-repeat -40px 0;width:330px;height:233px;position:relative;}
+.banben{position:absolute;left:118px;top:180px;color:#fff;font-size:15px;letter-spacing:1px;}
+.close{color:#fff;position:absolute;display:block;width:20px;height:20px;right:0px;top:0px;cursor:pointer;text-align:center;line-height:20px;}
+.close:hover{background:rgba(248,93,93,1)}
+.login_main{padding:15px 50px;height:267px;position:relative;box-sizing:border-box; background: #f5f6f7;
+    margin-top: 50px;
+    border-radius: 10px;
+    background:#fff;
+
+}
+.login_main .input_style{padding-left:30px;}
+
+/*表单演示 Start*/
+.input_style{width:225px;height:32px;border-radius:5px;margin-bottom:10px;display:inline-block;padding:5px 8px;font-size:13px;line-height:1.53846154;color:#999;vertical-align:middle;border:1px solid #E0E3E7;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;box-sizing:border-box}
+.input_style::placeholder{color:#888;}
+.input_style:focus{border-color:#66AFE9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(20,92,205,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(20,92,205,.6);}
+.login_zc{margin-bottom:20px;margin-top:5px;}
+.login_zc a{color:#1B83BC;}
+.login_dl{width:227px;height:32px;background:#178efa;border-radius:4px;color:#fff;text-align:center;line-height:32px;cursor:pointer;border:none;}
+.login_dl:active{background:#0576dd;}
+.login_dl-error{width:227px;height:32px;border-radius:4px;color:#fff;text-align:center;line-height:32px;cursor:pointer;border:none;background:#d6d6d6;outline:none}
+.login_dl-error:active{background:#ccc}
+.login_mm {
+    background: url(./ioc/mm3.png) 5px center no-repeat;
+}
+.login_zh {
+    background: url(./ioc/user2.png) 5px center no-repeat;
+}
+.login_qh {
+    background: url(./ioc/qh.png) 5px center no-repeat;
 }
 
-@-webkit-keyframes mysec /* Safari and Chrome */
-{
-0%   { left:0px;}
-25%   { left:-225px;}
-50%   { left:-450px;} 
-75%   { left:-675px;} 
-100%  {left:-900px}
- 
+
+
+
+
+
+
+
+
+.load{
+  width: 330px; height: 500px;
+  margin:auto auto;
 }
+
+.loader {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  width: 175px;
+  height: 100px;
+
+}
+.loader span {
+  display: block;
+  background: #FF9966;
+  width: 7px;
+  height: 10%;
+  border-radius: 14px;
+  margin-right: 5px;
+  float: left;
+  margin-top: 25%;
+}
+.loader span:last-child {
+  margin-right: 0px;
+}
+.loader span:nth-child(1) {
+ animation: load 2.5s 1.4s infinite linear;
+}
+.loader span:nth-child(2) {
+ animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(3) {
+ animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(4) {
+ animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(5) {
+ animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(6) {
+ animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(7) {
+ animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(8) {
+ animation: load 2.5s 0s infinite linear;
+}
+.loader span:nth-child(9) {
+ animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(10) {
+ animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(11) {
+ animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(12) {
+ animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(13) {
+ animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(14) {
+ animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(15) {
+ animation: load 2.5s 1.4s infinite linear;
+}
+@keyframes load {
+ 0% {
+ background: #fff;
+ margin-top: 25%;
+ height: 10%;
+}
+ 50% {
+ background: #FF9966;
+ height: 100%;
+ margin-top: 0%;
+}
+ 100% {
+ background: #FF9966;
+ height: 10%;
+ margin-top: 25%;
+}
+}
+
 </style>
+
+<link rel="stylesheet" href="./css/loading.css">
+
 </head>
 
-<body>
+<body style="overflow:hidden" >
 
-<div class="main" id="login-container"> 
-   <div class="yun1"><img ondragstart="return false;" src="img/yun1.png"><img ondragstart="return false;" src="img/yun1.png"></div>
-   <div class="yun2"><img ondragstart="return false;" src="img/yun2.png"><img ondragstart="return false;" src="img/yun2.png"></div>
-
-   <div id='lan' style="cursor:pointer;"  class="login_1"><img id="avatar"  ondragstart="return false;" src="img/tu.png"></div>
-   <div class="login_2" id="login"  style="cursor:pointer; -webkit-app-region:no-drag;"></div>
-   <div class="login_4" style="cursor:pointer; -webkit-app-region:no-drag;">
-      <ul>
-       <li><a href="http://www.linksame.com/index.php?app=Core&m=Pcdregister&a=choicelocation"><b>注册激活</b></a>
-        &nbsp &nbsp
-        <a href="http://www.linksame.com/index.php?app=Core&m=Member&a=findpasswordView"><b>忘记密码</b></a></li>
-     <!-- <li><a href="setting.html"  target="_blank"><b>检修</b>&nbsp &nbsp <b onclick="loginOut();">切换账号<span id='user'></span></b></a></li> -->
-    </ul>
-   </div>
-   <div class="login_3"><img  ondragstart="return false;" src="img/wen.png"></div>
-   <div class="login_close" id="closebtn" style="cursor:pointer;-webkit-app-region:no-drag;" ></div>
-   <span class="login_text">    
-
-   <!-- <a href="javascript:checkVersion();" style="color:#4385f4;font-size:12px; text-decoration:none;">升级</a>&nbsp; &nbsp; -->
-   <!-- <a href="javascript:" style="color:#666;font-size:14px; text-decoration:none;">版本：</a> --><span id="vision"></span>  &nbsp; &nbsp; &nbsp; <span id="network"></span></span>
-
+<div class="load"  id="login"style="cursor: move;-webkit-app-region:drag;">  
+<div id="ajaxloader1"></div>
+  
+  <div class="login_main"><div style="width: 400px;height: 300px;margin: auto;padding: 100px 0;"><p style="margin-bottom: 10px; color: red;">与服务器链接断开，请联系步步高 系统管理员。<br> <a href="#">或者按 F5 刷新，ESC 退出软件</a></p> <button type="submit" class="login_dl">检测网络</button></div></div>
 </div>
+    <script type="text/javascript">
+const electron = require('electron')
+const {ipcRenderer} = require('electron')
+const {shell} = require('electron')
+const storage = require('electron-json-storage'); 
+
+vm = new Vue({
+  el:'#login',
+  data:{
+      name:'ranmufei',      
+      username:'',
+      islogin:false,
+      disabled:false,
+      network:false,
+      checktxt:'检测网络'
+  },
+  methods:{
+    islogin:function(){
+      // 检测升级包          
+      ipcRenderer.send('islogin')
+    },
+    testnetwork:function(){
+      // 检查网络
+      
+      ipcRenderer.send('testNetwork')
+      let num=1
+      setInterval(function(){         
+        num++
+        if(num%2==0){
+          vm.checktxt="检测网络 ..."
+        }else{
+          vm.checktxt="检测网络 ……"
+        }
+       
+       }, 1000);
+    },
+    login:function(){
+      console.log('login')
+     // window.location.href="http://www.linksame.com/index.php?app=Core&m=Pcdlogin&network=1&ip=0"
+    },
+    closebtn:function(){
+      ipcRenderer.send('window-close');
+    },
+    loginout:function(){
+       ipcRenderer.send('loginout');
+       vm.login()
+    },
+    rege:function(){
+      //shell.openExternal('http://www.linksame.com/index.php?app=Core&m=Member&a=reg')
+    }
+   
+    
+  },
+  watch:{
+ 
+  }
+})
+
+/*// 刷新
+globalShortcut.register('f5',function(){
+       vm.testnetwork()
+});*/
+
+// 1 检查登陆
+ipcRenderer.on('islogin', (event, arg) => {
+  console.log(arg)
+  if(arg.length!=0){
+    document.getElementById('login').style.display='block'
+    vm.islogin=true
+    vm.username=arg[0].value
+  }else{
+    // 未登陆
+    // 2 检查网络    
+    
+    setTimeout(function(){
+      vm.testnetwork()
+
+    },2000)
+
+     setTimeout(function(){
+       document.getElementById('login').style.display='block'
+    },4000)
+
+    
+  }
+  
+})
+// 2 检查网络 等待main 发送过来
+ipcRenderer.on('testNetwork', (event, arg) => {
+  if(arg==='success'){
+    // 网络正常 跳转到linksame
+    vm.network=true
+
+   // window.location.href=geturl()
+   // 函数中实现选择走默认 还是 设置的路劲
+   geturl() 
+    //console.log('url==',geturl())
+  }else{
+    document.getElementById('login').style.display='block'
+  }  
+
+})
 
 
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/jquery-1.7.2.min.js"></script>
-<script src="./index.js"></script>
+/**
+ * 获取登陆地址 
+ * 默认用公司正式版 如果切换为测试版 从本地数据库中读取设置的地址
+ * @return {[type]} [description]
+ */
+function geturl(){
+    var ybeurl="http://login.fengkong.bbg.com.cn/"
+    //var ybeurl ="http://login.03in.net:81/";
+    //var ybeurl ="http://localhost:85/";
+    storage.get('url', function(error, data) {
+     if (error) throw error;
+
+      if(typeof(data) =="string" && data.length>5){
+          console.log('geturl ok:  ',data,data.length);
+          ybeurl=data
+      }else{
+          console.log('geturl no:  ',data);
+      }
+     //mainWindow.loadURL(ybeurl)
+     //mainWindow.loadURL(mainindex)
+      window.location.href=ybeurl
+      console.log('typeof',typeof(data))
+    
+  });
+ 
+}
+
+// 3 跳转登陆
+
+//vm.islogin()
+/*function islogin(){
+  
+  ipcRenderer.send('islogin')
+}
+
+islogin()*/
 
 
+    document.onkeydown=function(e){    //对整个页面文档监听  
+            var keyNum=window.event ? e.keyCode :e.which;       //获取被按下的键值  
+            //判断如果用户按下了回车键（keycody=13）  
+            console.log('keynum',keyNum)
+            if(keyNum=='27'){
+                  vm.closebtn()
+            }
+            // 刷新
+             if(keyNum=='116'){
+                 window.location.reload()
+                 ipcRenderer.send('testNetwork')
+            }
+            // 关机
+             if(keyNum=='123'){
+                 //window.location.reload()
+                 ipcRenderer.send('window-shutdown')
+            }
+
+
+    }
+ipcRenderer.send('testNetwork')
+</script>
 </body>
+
 </html>
+
+

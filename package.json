@@ -1,13 +1,14 @@
 {
   "name": "linksame",
-  "version": "1.0.5",
-  "description": "邻盛管家客户端",
+  "version": "1.1.4",
+  "description": "零售安全风险管控系统平台",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder -wm",    
-    "build": "electron-builder",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dist": "electron-builder -wm",
+    "build": "electron-builder --win --ia32",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": {
     "type": "git",
@@ -23,23 +24,29 @@
     "url": "https://github.com/ranmufei/lks-client/issues"
   },
   "homepage": "https://github.com/ranmufei/lks-client#readme",
-  "dependencies": {    
+  "dependencies": {
+    "electron-json-storage": "^4.1.0",
     "electron-main-notification": "^1.0.1",
     "electron-notify": "^0.1.0",
     "electron-packager": "^10.1.2",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "^2.20.1",
+    "electron-updater": "^4.0.0",
+    "fluent-ffmpeg": "^2.1.2",
     "gulp": "^3.9.1",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "node-media-server": "^1.4.9",
+    "node-rtsp-stream": "0.0.3",
+    "request": "^2.83.0",
+    "winreg": "^1.2.4"
   },
   "build": {
     "appId": "github.com.ranmufei",
     "copyright": "RANMUFEI",
-    "productName": "Linksame",
+    "productName": "零售安全风险管控系统平台_v1.1.4",
     "publish": [
       {
         "provider": "generic",
-        "url": "http://www.linksame.com/release/"
+        "url": "http://www.linksame.com/bubugao/"
       }
     ],
     "win": {
@@ -52,7 +59,11 @@
   },
   "devDependencies": {
     "electron": "^1.7.12",
+    "electron-builder": "^20.38.4",
+    "electron-rebuild": "^1.7.3",
     "electron-winstaller": "^2.6.4",
-    "grunt-electron-installer": "^2.1.0"
+    "grunt-electron-installer": "^2.1.0",
+    "install": "^0.12.2",
+    "postinstall": "^0.4.2"
   }
 }
